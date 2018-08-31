@@ -1,0 +1,330 @@
+@import "breakpoint";
+@import "compass";
+@import "compass/css3/transform";
+
+
+$pc1280: max-width 1300px; 
+$ipad: max-width 1025px;
+$iphone: max-width 525px; 
+$iphone5: max-width 321px; 
+
+@mixin heightcenter($top) {
+    top: $top;
+    position: relative;
+    @include transform(translateY(-$top));
+  }
+
+
+@mixin logo ($color:#3C00B4)  {
+    display: inline-block;
+    height: 50px;
+    width: 120px;
+    border: none;
+    background-color: $color;
+    vertical-align: top;
+    @include transition(all .5s);
+    -webkit-mask: url(../images/logo.svg) no-repeat center center;
+    -webkit-mask-size: 100%;
+}
+
+@mixin ie1011Edge ($url) {
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    background: url($url); 
+    background-color:rgba(0, 0, 0, 0);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+  @supports (-ms-ime-align:auto) {
+    background: url($url); 
+    background-color: rgba(0 , 0, 0, 0);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+}
+
+.nav {
+    height: 65px;
+    background-color: #fff;
+    border-bottom: #000 solid 5px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 11;
+    @include transition(all 0.1s);
+    @include breakpoint($iphone) {
+      height: 60px;
+    }
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        @include heightcenter(50%);
+        .logo {
+          @include logo();
+          @include ie1011Edge("../images/logo.png");
+          @include breakpoint($iphone) {
+            width: 105px;
+          }
+        }
+        .group {
+          position: absolute;
+          right: 0px;
+          top: 10px;
+          @include transition(all 1s);
+          .icon-search {
+            margin-right: 0px;
+          }
+        }
+    }
+}
+
+@mixin icon($img,$color,$size) {
+    display: inline-block;
+    height: 28px;
+    width: 28px;
+    border: none;
+    background-color: $color;
+    margin-top: 0;
+    margin-left: -5px;
+    vertical-align: top;
+    @include transition(all .5s);
+    margin-right: 30px;
+    -webkit-mask: url($img) no-repeat center center;
+    -webkit-mask-size: $size;
+    &:hover {
+      background-color: #1ea0c3;
+    }
+    @include breakpoint($iphone) {
+      margin-right: 15px;     
+    }
+}
+
+.icon-search {
+    @include icon("../images/Search.svg",#000,90%);
+    @include ie1011Edge("../images/pc-search.png");
+}
+.icon-fb {
+    @include icon("../images/facebook.svg",#000,100%);
+    @include ie1011Edge("../images/pc-fb.png");
+}
+.icon-line {
+    @include icon("../images/line-messenger.svg",#fff,100%);
+    @include ie1011Edge("../images/line-messenger.png");
+}
+.icon-mail {
+  @include icon("../images/mail_gray.svg",#000,100%);
+  @include ie1011Edge("../images/mail_gray.png");
+}
+li {
+    list-style: none;
+  }
+  
+  main {
+      &.fixed {
+        position: fixed;
+      }
+      @include breakpoint($ipad) {
+        background-color: rgba(255, 255, 255, 0);
+      }  
+  }
+  menu input[type=checkbox] {
+    display: none;
+    &:checked ~ hamburger > i {
+      background-color: transparent;
+      @include transform(rotate(90deg));
+      &:before {
+        @include transform(translate(-50%, -50%) rotate(315deg));
+        background-color: #ffffff;    
+      }
+      &:after {
+        @include transform(translate(-50%, -50%) rotate(-315deg));
+        background-color: #ffffff;    
+      }
+    }
+  }
+  menu hamburger {
+    display: block;
+    width: 30px;
+    height: 25px;
+    position: absolute;
+    z-index: 999;
+    top: 10px;
+    @include transition(all 1s);
+    left: 0px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  menu hamburger > i {
+    position: absolute;
+    width: 30px;
+    height: 2px;
+    top: 50%;
+    background-color: #3c00b4;
+    pointer-events: auto;
+    transition-duration: .35s;
+    transition-delay: .35s;
+  }
+  %all {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 2px;
+    left: 50%;
+    background-color: #3c00b4;
+    content: "";
+    @include transition(transform 0.35s);
+    transform-origin: 50% 50%;
+  }
+  menu hamburger > i:before {
+    @extend %all;
+    @include transform(translate(-50%, -10px));
+  }
+  menu hamburger > i:after {
+    @extend %all;
+    @include transform(translate(-50%, 10px));
+  }
+  /* reset */
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  label {
+    cursor: pointer;
+    &:hover {
+       outline: none;
+    }
+  }
+  .menu {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background: #3c00b4;
+    width: 345px;
+    height: 105%;
+    @include transform(translate3d(-345px, 0, 0));
+    @include transition(transform 0.35s);
+    z-index: 999;
+    overflow: auto;
+    @include breakpoint($iphone5) {
+      width: 320px;
+      @include transform(translate3d(-320px, 0, 0));      
+    }
+  }
+  .show { 
+    @include transform(translate3d(0, 0, 0));
+  }
+  .menu ul li a, .menu ul li label {
+    position: relative;
+    margin: auto;
+    text-decoration: none;
+    color: #fff;
+    padding: 25px 0px;
+    display: block;
+    font-size: 20px;
+  }
+  .menu-checkbox {
+    display: none;
+  }
+
+%more {
+  content: " ";
+  position: absolute;
+  display: inline-block;
+  height: 2px;
+  width: 10px;
+  @include transition(transform 0.3s);  
+  background: #fff;
+  right: 0px;
+}
+
+
+
+
+
+.nav-box {
+  padding: 70px 0px 100px 0px;
+  .close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 30px;
+    cursor: pointer;
+  }
+  .logo {
+    margin: 0px 50px 0px 50px;
+    @include logo(#fff);
+    @include ie1011Edge("../images/mb-logo.png");
+  } 
+  ul.mb-ul {
+    padding-bottom: 100px;
+    li { 
+      color: #fff;
+      padding: 0px 50px 0px 50px;
+      .connet {
+        color: #fff;
+        padding: 25px 0px;
+        display: block;
+        &:before {
+          @extend %more;         
+          @include transform(rotate(45deg));
+          margin-top: 4px;
+        }
+        &:after {
+          @extend %more;
+          @include transform(rotate(-45deg));
+          margin-top: 10px;
+        }
+      }
+      a.down {
+        &:before {
+          @include transform(rotate(45deg) translateX(-3px) translateY(9px));
+        }
+        &:after {
+          @include transform(rotate(-45deg) translateX(0px) translateY(-3px));
+        }
+      }
+    }
+    ul.sudeMenuSub {
+      display: none;
+      background-color: #666;
+      margin: 0 -50px;
+      padding: 0 50px 0 50px;
+      li {
+        padding: 0px;
+        a {
+          border-top: #fff solid 1px;
+        }
+      }
+      li:nth-child(1) {
+        a {
+          border-top: #fff solid 0px;
+        }
+      }
+    }
+  }
+  .icon {
+    padding: 0px 50px 0px 50px;
+    .icon-search {
+      @include icon("../images/Search.svg",#fff,90%);
+      @include ie1011Edge("../images/search.png");
+    }
+    .icon-fb {
+      @include icon("../images/facebook.svg",#fff,100%);
+      @include ie1011Edge("../images/fb.png");
+    }
+    .icon-mail {
+      @include icon("../images/mail_white.svg",#fff,100%);
+      @include ie1011Edge("../images/mail_white.png");
+    }        
+  }
+}
+.nav {
+  .except-index {
+      width: 970px;
+      @include breakpoint($ipad) {
+          width: 95%;
+          padding: 0px;
+      }        
+  }
+}

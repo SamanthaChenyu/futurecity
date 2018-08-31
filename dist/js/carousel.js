@@ -1,0 +1,1 @@
+$(document).ready(function(){var e=$(".owl-carousel"),o=$(".owl-mousewheel");e.owlCarousel({items:1,loop:!0,margin:0,nav:!0,autoplay:!0,autoplayTimeout:8e3,autoplayHoverPause:!0,responsive:{0:{items:1},600:{items:1},1000:{items:1}}}),o.owlCarousel({loop:!0,nav:!0,margin:0,responsive:{0:{items:4},600:{items:6},960:{items:6},1300:{items:6}}})});

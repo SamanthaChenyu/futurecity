@@ -1,0 +1,546 @@
+@import "compass";
+@import "compass/reset";
+@import "breakpoint";
+@import "compass/css3/transform";
+@import "compass/css3/box-shadow";
+@import "compass/css3/filter";
+
+$pc1366: max-width 1367px;
+$pc1280: max-width 1300px; 
+$ipad: max-width 1025px;
+$iphone: max-width 680px; 
+
+@mixin center($top,$left) {
+    position: relative;
+    top: $top;
+    left: $left;
+    @include transform(translateX(-$left) translateY(-$top));
+}
+@mixin icon($img,$color,$size) {
+    display: inline-block;
+    height: $size;
+    width: $size;
+    border: none;
+    background-color: $color;
+    margin-top: 0;
+    margin-left: -5px;
+    vertical-align: top;
+    transition: .5s;
+    margin-right: 30px;
+    -webkit-mask: url($img) no-repeat center center;
+    -webkit-mask-size: 100%;
+    &:hover {
+        background-color: #1ea0c3;
+    }
+}
+
+@mixin ie1011Edge ($url) {
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+      background: url($url); 
+      background-color:rgba(0, 0, 0, 0);
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      padding: 0px;
+    }
+    @supports (-ms-ime-align:auto) {
+      background: url($url); 
+      background-color: rgba(0 , 0, 0, 0);
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      padding: 0px;
+    }
+}
+a {
+    text-decoration: none;
+    color: #000;
+    transition: all 0.3s;
+    &:hover {
+        color: #1ea0c3;
+    }
+}
+img {
+    border: 0;
+}
+body {
+    letter-spacing: 1px;
+    font-size: 15px;
+    background-color: #f5f5f5;
+    line-height: 1;
+    font-family: 'Microsoft JhengHei';
+    
+}
+
+button,input {
+	outline:none;
+	align-items: flex-start;
+    text-align: center;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0);
+    background-color: rgba(255, 255, 255, 0);
+    box-sizing: initial;
+    padding: 0;
+    border-width: 0px;
+    border-style: none;
+    font-size: 2.5rem;
+    border-radius: 0;
+    -webkit-appearance: none;
+}
+.container {
+    width: 1280px;
+    margin: auto;
+    @include breakpoint($pc1280) {
+        width: 95%;
+        margin: auto;        
+    }
+}
+h1 {
+    font-size: 40px;
+    font-weight: bold;
+    padding: 30px 0px; 
+    line-height: 50px;   
+    transition: all 0.3s;
+    @include breakpoint($iphone) {
+        padding: 10px 0px; 
+    }
+}
+h2 {
+    border-left: 2px solid #3f05b5;
+    padding-left: 5px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 20px;
+    transition: all 0.3s;
+}
+h3 {
+    font-size: 20px;
+    line-height: 25px;
+    padding: 10px 0px;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+h4 {
+    font-size: 15px;
+    line-height: 25px;
+    padding: 10px 0px;
+    font-weight: bold; 
+    border-bottom: #95989A solid 1px;   
+}
+h5 {
+    font-size: 12px;
+    color: #1ea0c3;    
+}
+section.article-header {
+    img {
+        width: 100%;
+    }
+}
+.main {
+    display: flex;
+    justify-content: center;
+    margin: 80px auto 20px auto;
+    @include breakpoint($ipad) {
+        flex-direction: column;    
+    }    
+    @include breakpoint($iphone) {
+        margin: 70px auto 20px auto;
+    }
+    .left-box {
+        width: 960px;
+        @include breakpoint($pc1280) {
+            width: calc(100vw - 400px);
+        }
+        @include breakpoint($ipad) {
+            width: 100%;
+        }
+    }
+    .right-box {
+        width: 300px;
+        margin-left: 20px;
+        height: 1938px;
+        @include breakpoint($ipad) {
+            width: 100%;
+            height: auto;
+            margin: 0px auto;
+        }
+        .mb-rightbox {
+            float: left;
+            width: 300px;
+            @include breakpoint($iphone) {
+                float: inherit;
+                margin: 0 auto;
+            }            
+        }
+        .banner {
+            float: right;
+            @include breakpoint($iphone) {
+                float: inherit;
+                margin: 0 auto;
+            } 
+        }
+    }
+}
+aside {
+    @include transition(all 1s);
+}
+.main-exceptindex {
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+    padding-top: 95px;
+    @include breakpoint($ipad) {
+        flex-direction: column;
+    }
+    @include breakpoint($iphone) {
+        padding-top: 65px;
+    }
+    .left-box {
+        width: 630px;
+        padding-right: 20px;
+        @include breakpoint($ipad) {
+            width: 100%;
+            padding: 0px;
+        }
+    }
+    .right-box {
+        width: 300px;
+        margin-left: 20px;
+        height: 1938px;
+        @include breakpoint($ipad) {
+            width: 100%;
+            height: auto;
+            margin: 20px auto 0px auto;
+        }
+        .mb-rightbox {
+            float: left;
+            width: 300px;
+            @include breakpoint($iphone) {
+                float: inherit;
+                margin: 0 auto;
+            }            
+        }
+        .banner {
+            float: right;
+            @include breakpoint($iphone) {
+                float: inherit;
+                margin: 0 auto;
+            } 
+        }
+    }    
+}
+section.frombox {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    width: 100vw;
+    height: 100vh;
+    top: 0px;
+    background-color: rgba(0,0,0,.9);
+    .closeTouch {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 0;
+        margin: 0;
+        top: 0;
+        left: 0; 
+        z-index: -1;       
+    }
+    .show {
+        @include transform(translate3d(0, 0, 0));
+    }
+    .form {
+        width: 250px;
+        display: inline-flex;
+        height: 30px;
+        @include center(50%,50%);
+        position: absolute;
+    }
+    .form input[type=search] {
+        display: block;
+        float: left;
+        font-size: 15px;
+        width: 222px;
+        color: #1e1e1e;
+        padding-left: 5px;
+        text-align: left;
+        height: 30px;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        background: #fff no-repeat 2vw center;
+        border-radius: 0px;
+    }
+
+    .form input[type=search]::-webkit-input-placeholder {
+        color: #1e1e1e
+    }
+
+    .form input[type=search]:-moz-placeholder {
+        color: #1e1e1e
+    }
+
+    .form input[type=search]::-moz-placeholder {
+        color: #1e1e1e
+    }
+
+    .form input[type=search]:-ms-input-placeholder {
+        color: #1e1e1e
+    }
+
+    .form input[type=search].isFocus {
+        width: 55vw
+    }
+    .form input[type=button] {
+        display: none;
+        float: left;
+        width: 18vw;
+        height: 10vh;
+        background: #565454;
+        margin: 0 0 0 2vw
+    }
+
+    .form .delete_btn {
+        display: none;
+        position: relative;
+        width: 5vw;
+        height: 5vh;
+        background: #1e1e1e;
+        -moz-background-size: 100% auto;
+        -o-background-size: 100% auto;
+        -webkit-background-size: 100% auto;
+        background-size: 100% auto;
+        position: absolute;
+        top: 4.5vw;
+        left: 52vw;
+        z-index: 99;
+        -moz-border-radius: 99em;
+        -webkit-border-radius: 99em;
+        border-radius: 99em
+    }
+
+    .form .delete_btn::before {
+        content: "";
+        width: 3vw;
+        height: 1px;
+        background: #fff;
+        -moz-border-radius: 99px;
+        -webkit-border-radius: 99px;
+        border-radius: 99px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -moz-transform: rotate(45deg) translate(-50%, -50%);
+        -ms-transform: rotate(45deg) translate(-50%, -50%);
+        -webkit-transform: rotate(45deg) translate(-50%, -50%);
+        transform: rotate(45deg) translate(-50%, -50%);
+        -moz-transform-origin: top left;
+        -ms-transform-origin: top left;
+        -webkit-transform-origin: top left;
+        transform-origin: top left
+    }
+
+    .form .delete_btn::after {
+        content: "";
+        width: 3vw;
+        height: 1px;
+        background: #fff;
+        -moz-border-radius: 99px;
+        -webkit-border-radius: 99px;
+        border-radius: 99px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -moz-transform: rotate(-45deg) translate(-50%, -50%);
+        -ms-transform: rotate(-45deg) translate(-50%, -50%);
+        -webkit-transform: rotate(-45deg) translate(-50%, -50%);
+        transform: rotate(-45deg) translate(-50%, -50%);
+        -moz-transform-origin: top left;
+        -ms-transform-origin: top left;
+        -webkit-transform-origin: top left;
+        transform-origin: top left
+    }
+    .simg {
+        background-color: #000 !important;
+        border: 2px solid #000;
+        height: auto;
+        overflow: hidden;
+        width: 30px;
+    }
+}
+
+.article-item {
+    width: 300px;
+    margin-right: 20px;
+    box-sizing: border-box;
+    position: relative;
+    p {
+        line-height: 24px;
+        height: 48px;
+        width: 260px;
+    }
+    img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+    .data-info {
+        padding: 20px;
+        height: 185px;
+    }
+    .article-icon {
+        position: absolute;
+        bottom: 20px;
+        width: 100%;
+        time {
+            color: #989898;
+            position: absolute;
+            right: 0;
+            padding-right: 25px;
+            line-height: 25px;
+        }
+        .icon-fb {
+            @include icon("../images/facebook.svg",#989898,28px);
+            @include ie1011Edge("../images/article-fb.png");
+            margin-left: 25px;
+        }
+        .icon-line {
+          @include icon("../images/line-messenger.svg",#989898,28px);
+          @include ie1011Edge("../images/article-line-messenger.png");
+        }
+        a {
+            &:before {
+                width: 20px;
+                height: 100%;
+                left: 70px;
+                top: 0px;
+                z-index: 999;
+            }
+        }
+    }
+}
+.keywords {
+    padding: 20px 10px 0px 10px;
+    height: 240px;
+    overflow: hidden;
+    .hottag {
+        line-height: 19px;
+        margin-bottom: 10px;
+        display: inline-block;
+        background-color: #fff;
+        color: #1ea0c3;
+        padding: 5px;
+        border: 0.6px solid #1ea0c3;
+        border-radius: 2px;
+        font-weight: bold;
+        font-size: 12px;  
+        @include transition(all 0.3s);
+            &:hover {
+                color: #3c00b4;
+                border: 0.6px solid #3c00b4;
+            }  
+    }
+}
+.hotarticle {
+    ul { 
+        padding: 10px;
+    }
+    li {
+        padding: 10px 0px;
+    }
+    @for $i from 1 to 6 { 
+        .number:nth-child(#{$i}) {
+            &:before {
+                content: "#{$i}. ";
+                width: 30px;
+                height: 30px;                
+            }
+        }
+    }
+}
+.channlarticle {
+    padding-bottom: 20px;
+    ul { 
+        padding: 10px;
+    }
+    li {
+        padding: 10px 0px;
+    }
+    @for $i from 1 to 6 { 
+        .number:nth-child(#{$i}) {
+            &:before {
+                content: url(../images/dorts.png);
+                width: 30px;
+                height: 30px;
+                padding-right: 5px;                
+            }
+        }
+    }    
+}
+.leafletBig,.leaflet {
+    margin-bottom: 10px;
+    height: auto;   
+}
+.footer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0px -5px 8px 0 rgba(0, 0, 0, 0.17), 0px 0px 0px 0 rgba(0, 0, 0, 0);
+    .container {
+        padding-top: 25px;
+        padding-bottom: 30px;
+        text-align: center;
+        @include breakpoint($iphone) {
+            padding-top: 15px;
+            padding-bottom: 30px;
+        }
+        &:before {
+            content: '';
+            display: block;
+            position: absolute;
+            bottom: 125px;
+            background-color: #3c00b4;
+            left: 50%;
+            width: 50px;
+            height: 2px;
+            @include transform(translateX(-50%));   
+            @include breakpoint($ipad) {
+                bottom: 130px;
+            }                 
+            @include breakpoint($iphone) {
+                bottom: 210px;
+            }
+        }
+    }
+    .about {
+        margin: auto;
+        text-align: center;
+        width: 680px;
+        margin: 0px auto 80px auto;
+        @include breakpoint($iphone) {
+            width: 90%;
+            margin: 0px auto 45px auto;
+        }
+        .footer-logo {
+            display: inline-block;
+            padding: 20px 0px;
+            height: 55px;
+            width: 130px;
+            border: none;
+            background-color: #3C00B4;
+            vertical-align: top;
+            @include transition(all .5s);
+            -webkit-mask: url(../images/logo.svg) no-repeat center center;
+            -webkit-mask-size: 100%;
+            margin: 25px auto 25px auto;
+            @include ie1011Edge ("../images/logo.png");
+            @include breakpoint($iphone) {
+                margin: 0px auto 0px auto;
+                height: 50px;
+                width: 120px;
+            }
+        }
+    }
+    p {
+        line-height: 25px;
+    }
+}

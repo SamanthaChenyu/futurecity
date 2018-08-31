@@ -1,0 +1,1812 @@
+@import "compass";
+@import "breakpoint";
+
+$pc1850: max-width 1850px;
+$pc1366: max-width 1367px;
+$pc1280: max-width 1300px; 
+$ipad: max-width 1025px;
+$ipad-mini: max-width 769px;
+$iphone: max-width 650px; 
+
+@mixin center($top,$left) {
+    top: $top;
+    left: $left;
+    position: relative;
+    @include transform(translateX(-$left) translateY(-$top));
+  }
+
+/**
+ * Owl Carousel v2.2.1
+ * Copyright 2013-2017 David Deutsch
+ * Licensed under  ()
+ */
+
+@mixin arrow($img) {
+    background-image: url($img);
+    width: 50px;
+    height: 50px;
+    background-size: 100% 100%;
+    color: transparent;
+    background-color: rgba(255, 255, 255, 0.23);
+    position: absolute;
+    @include breakpoint($iphone) {
+        width: 20px;
+        height: 20px;        
+    }
+ }
+ $carousel-height: 60vh;
+ $carousel-ipad-height: 35vh;
+ $carousel-mb-height: 180px;
+ .description-box {
+    position: absolute;
+    top: 0px;
+    width: 100vw;
+    height: $carousel-height;
+    background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.5) 100%);
+    background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.5) 100%);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.5) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=0);
+    @include breakpoint($ipad) {
+        height:  $carousel-ipad-height;
+    }
+    @include breakpoint($iphone) {
+        height: $carousel-mb-height;
+    }
+    .description {
+        width: 800px;
+        text-align: center;
+        @include center(90%,50%);
+        @include breakpoint($pc1280) {
+            width: 80%;
+        }            
+        @include breakpoint($iphone) {
+            @include center(90%,50%);
+        }
+        .cotittle {
+            font-size: 18px;
+            color: #fff;
+            line-height: 25px;
+            letter-spacing: 1px;
+            text-align: center;
+            font-weight: initial;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            @include breakpoint($iphone) {
+                display: none;
+            }
+        }
+        a {
+            cursor: pointer;
+        }
+        p {
+            font-size: 30px;
+            font-weight: 900;
+            letter-spacing: .15em;
+            padding-bottom: 20px;
+            color: #fff;
+            line-height: 35px;
+            text-shadow: 2px 2px 12px black;
+            @include breakpoint($ipad) {
+                font-size: 30px;
+                padding-bottom: 10px;
+                line-height: 35px;
+            }
+            @include breakpoint($iphone) {
+                font-size: 20px;
+                padding-bottom: 0px;
+                line-height: 25px;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }             
+        }
+    }
+}
+ .owl-nav {
+    position: absolute;
+    top: 50%;
+    @include transform(translateY(-50%));
+    z-index: 15;
+    width: 100%;    
+ }
+ .owl-prev {
+    @include arrow("../images/leftArrow.png");
+    left: 0;
+ }
+ .owl-next {
+    @include arrow("../images/rightArrow.png");  
+    right: 0;
+ }
+ .owl-carousel,.owl-carousel .owl-item {
+    -webkit-tap-highlight-color: transparent;
+    position: relative
+}
+
+.owl-carousel {
+    display: none;
+    width: 100%;
+    padding-top: 65px;
+    z-index: 1;
+    overflow: hidden;
+    .item {
+        background-color: #000;
+        video {
+            width: 100%;
+            height: $carousel-height; 
+            @include breakpoint($ipad) {
+                height:  $carousel-ipad-height;
+            }  
+            @include breakpoint($iphone) {
+                height: $carousel-mb-height;
+            }         
+        }
+    }
+}
+
+.owl-mousewheel {
+    z-index: 1;
+    overflow: hidden;    
+    .owl-stage-outer {
+        -ms-touch-action: pan-Y;
+        -moz-backface-visibility: hidden;
+        position: relative;
+        overflow: hidden;
+        height: 50px;
+        -moz-transform: translate3d(0, 0, 0);
+        -ms-transform: translate3d(0, 0, 0);
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);  
+            @include breakpoint($iphone) {
+               height: 46px;
+            }           
+        .owl-item {
+            float: left;
+            color: #fff;
+        }   
+    }
+    .owl-dots {
+        display: none;
+    }
+    .owl-nav {
+        display: none;
+        @include breakpoint($iphone) {
+           display: block;
+           position: relative;
+           .owl-prev {
+                @include arrow("../images/tab-leftArrow.png");
+                background-color: rgba(255, 255, 255, 0);
+                top: -33px;
+           }
+           .owl-next {
+                @include arrow("../images/tab-rightArrow.png");
+                background-color: rgba(255, 255, 255, 0);
+                top: -33px;
+           }
+        }        
+    }
+    @include breakpoint($iphone) {
+        width: 100%;
+    }
+}
+.owl-carousel .owl-stage {
+    position: relative;
+    -ms-touch-action: pan-Y;
+    -moz-backface-visibility: hidden
+}
+
+.owl-carousel .owl-stage:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0
+}
+
+.owl-carousel .owl-stage-outer {
+    position: relative;
+    overflow: hidden;
+    height: $carousel-height;
+    @include transform(translate3d(0,0,0));
+    @include breakpoint($ipad) {
+        height:  $carousel-ipad-height;
+    }
+    @include breakpoint($iphone) {
+        height: $carousel-mb-height;
+    }
+}
+
+.owl-carousel .owl-item,.owl-carousel .owl-wrapper {
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translate3d(0,0,0);
+    -moz-transform: translate3d(0,0,0);
+    -ms-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+
+}
+
+.owl-carousel .owl-item {
+    min-height: 1px;
+    float: left;
+    -webkit-backface-visibility: hidden;
+    -webkit-touch-callout: none
+}
+
+.owl-carousel .owl-item img {
+    display: block;
+    width: 100%;
+    @include breakpoint($iphone) {
+        width: 120%;
+    }
+}
+
+.owl-carousel .owl-dots.disabled,.owl-carousel {
+    display: none
+}
+
+.no-js .owl-carousel,.owl-carousel.owl-loaded {
+    display: block
+}
+
+.owl-carousel .owl-dot,.owl-carousel .owl-nav .owl-next,.owl-carousel .owl-nav .owl-prev {
+    cursor: pointer;
+    cursor: hand;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
+}
+
+.owl-carousel.owl-loading {
+    opacity: 0;
+    display: block
+}
+
+.owl-carousel.owl-hidden {
+    opacity: 0
+}
+
+.owl-carousel.owl-refresh .owl-item {
+    visibility: hidden
+}
+
+.owl-carousel.owl-drag .owl-item {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
+}
+
+.owl-carousel.owl-grab {
+    cursor: move;
+    cursor: grab
+}
+
+.owl-carousel.owl-rtl {
+    direction: rtl
+}
+
+.owl-carousel.owl-rtl .owl-item {
+    float: right
+}
+
+.owl-carousel .animated {
+    animation-duration: 1s;
+    animation-fill-mode: both
+}
+
+.owl-carousel .owl-animated-in {
+    z-index: 0
+}
+
+.owl-carousel .owl-animated-out {
+    z-index: 1
+}
+
+.owl-carousel .fadeOut {
+    animation-name: fadeOut
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1
+    }
+
+    100% {
+        opacity: 0
+    }
+}
+
+.owl-height {
+    @include transition(height .5s ease-in-out);
+}
+
+.owl-carousel .owl-item .owl-lazy {
+    opacity: 0;
+    @include transition(opacity .4s ease);
+}
+
+.owl-carousel .owl-item img.owl-lazy {
+    transform-style: preserve-3d
+}
+
+.owl-carousel .owl-video-wrapper {
+    position: relative;
+    height: 100%;
+    background: #000
+}
+
+.owl-carousel .owl-video-play-icon {
+    position: absolute;
+    height: 80px;
+    width: 80px;
+    left: 50%;
+    top: 50%;
+    margin-left: -40px;
+    margin-top: -40px;
+    background: url(owl.video.play.png) no-repeat;
+    cursor: pointer;
+    z-index: 1;
+    -webkit-backface-visibility: hidden; 
+    @include transition(transform .1s ease);
+}
+
+.owl-carousel .owl-video-play-icon:hover {
+    @include transform(scale(1.3,1.3));
+}
+
+.owl-carousel .owl-video-playing .owl-video-play-icon,.owl-carousel .owl-video-playing .owl-video-tn {
+    display: none
+}
+
+.owl-carousel .owl-video-tn {
+    opacity: 0;
+    height: 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    @include transition(opacity .4s ease);
+}
+
+.owl-carousel .owl-video-frame {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    width: 100%
+}
+
+
+.tab {
+    background-color: #000;
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
+    width: 100% !important;
+    z-index: 10;
+    height: 50px;
+    position: absolute;
+    @include transition(all 0.1s);
+    ul {
+        li {
+            text-align: center;
+            cursor: pointer;
+            line-height: 45px;
+                &:hover {
+                    border-bottom: #3c00b4 5px solid;
+                }
+            @include breakpoint($iphone) {
+                text-align: center;
+                line-height: 42px;
+            }
+            a {
+            @include transition(all 1s);
+            line-height: 25px;
+            font-size: 16px;
+            color: #fff;
+            @include breakpoint($iphone) {
+                font-size: 12px;
+                border-bottom: none;
+                }
+            }
+        }
+    }
+}
+@mixin ie1011Edge ($url) {
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+      background: url($url); 
+      background-color:rgba(0, 0, 0, 0);
+      background-repeat: no-repeat;
+    }
+    @supports (-ms-ime-align:auto) {
+      background: url($url); 
+      background-color: rgba(0 , 0, 0, 0);
+      background-repeat: no-repeat;
+    }
+  }
+@mixin icon($img,$color,$size) {
+    display: inline-block;
+    height: $size;
+    width: $size;
+    border: none;
+    background-color: $color;
+    margin-top: 0;
+    margin-left: -5px;
+    vertical-align: top;
+    @include transition(all 1s);
+    margin-right: 30px;
+    -webkit-mask: url($img) no-repeat center center;
+    -webkit-mask-size: 100%;
+    &:hover {
+        background-color: #1ea0c3;
+    }
+}
+.Album {
+    height: 422px;
+    position: relative;
+    overflow: hidden;
+    @include breakpoint($pc1280) {
+        height: 320px;
+    }
+    @include breakpoint($iphone) {
+        height: auto;
+    }
+    img {
+        @include breakpoint($pc1280) {
+            width: 115%;
+        }
+        @include breakpoint($iphone) {
+            width: 100%;
+            display: block;
+        }        
+    }
+    a {
+        &:before {
+            content: '';
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0);
+            @include transition(all .3s);
+        }
+    }
+    .description {
+        width: 310px;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        height: 422px;
+        background-color: rgba(17, 17, 17, 0.7);
+        @include breakpoint($pc1280) {
+            height: 325px;
+        }
+        @include breakpoint($iphone) {
+            width: 100%;
+            height: auto;
+            position: initial;
+            background-color: rgb(0, 0, 0);
+        }        
+        .box {
+            padding: 0px 25px;
+           @include center(30%,50%);
+            @include breakpoint($pc1280) {
+                @include center(20%,50%);
+            }
+            @include breakpoint($iphone) {
+                padding: 25px 25px;
+                position: inherit;
+                @include center(0%,0%);
+            }            
+           .tittle {
+            color: #fff;
+                &:hover {
+                    color: #3c00b4;
+                }            
+            }
+            .descript {
+                color: #fff;
+                line-height: 20px;
+                text-align: justify;
+            }
+        }
+        ul.breadCrumbs li {
+            display: inline-block;
+            position: relative;
+            font-size: 15px;
+            + li:before {
+                content: ' > ';
+                font-size: inherit;
+                color: #1ea0c3;
+            }
+            a {
+                color: #1ea0c3;
+                font-size: 12px;
+                &:hover {
+                    color: #3c00b4;
+                }
+            }
+        }
+        .article-icon {
+            position: absolute;
+            bottom: 40px;
+            width: 100%;
+            @include breakpoint($pc1280) {
+                bottom: 20px;
+            }
+            @include breakpoint($iphone) {
+                position: inherit;
+                padding-bottom: 20px;
+             }
+            time {
+                color: #989898;
+                position: absolute;
+                right: 0;
+                padding-right: 25px;
+                line-height: 25px;
+            }
+            .icon-fb {
+                @include icon("../images/facebook.svg",#989898,28px);
+                @include ie1011Edge("../images/article-fb.png");
+                margin-left: 25px;
+            }
+            .icon-line {
+              @include icon("../images/line-messenger.svg",#989898,28px);
+              @include ie1011Edge("../images/article-line-messenger.png");
+            }
+            a {
+                &:before {
+                    width: 20px;
+                    height: 100%;
+                    left: 70px;
+                    top: 0px;
+                    z-index: 999;
+                }
+            }
+        }
+    }
+}
+.item-flex {
+    display: flex;
+    flex-direction: row;
+    padding-top: 20px;
+    overflow: hidden;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 0px -10px;
+    @include breakpoint($pc1280) {
+        margin: 0px;
+        padding: 0px;
+        flex-direction: column;
+    }
+    .article-item {
+        width: 33.3333333333333333%;
+        box-sizing: border-box;
+        position: relative;
+        background-color: rgba(255, 255, 255, 0);
+        overflow: hidden;
+        margin-bottom: 20px;
+        margin-right: 0px;
+        padding: 0px 10px 0px 10px;
+        @include breakpoint($pc1280) {
+            margin-bottom: 0px;
+            margin-top: 20px;
+            width: 100%;
+            padding: 0px;
+        }
+        &:before {
+            content: "1";
+            width: 94%;
+            height: 100%;
+            z-index: -1;
+            color: rgba(255, 255, 255, 0);
+            background-color: #fff;
+            position: absolute;
+            @include breakpoint($pc1280) {
+                width: 100%;
+            }   
+            @include breakpoint($iphone) {
+                width: 100%;
+            }          
+        }    
+        p {
+            line-height: 24px;
+            height: 48px;
+            width: 100%;
+            text-align: justify
+        }
+        .data-info {
+            padding: 20px;
+            height: 225px;
+            @include breakpoint($pc1280) {
+                height: 170px;
+            }
+            @include breakpoint($iphone) {
+                height: 225px;
+            }
+            a {
+                color: #1ea0c3;
+                @include transition(all 0.3s);
+                    &:hover {
+                        color: #3c00b4;
+                    }
+                h3 {
+                    color: #000;
+                    @include transition(all 0.3s);
+                    &:hover {
+                        color: #1ea0c3;
+                    }
+                }
+            }
+        }
+    }
+}
+.navi-pages {
+    width: 100%;
+    line-height: 24px;
+    font-size: 12px;
+    display: block;
+    float: left;
+    font-family: Verdana;
+    position: relative;
+    height: 100px;
+    .incenter {
+        position: absolute;
+        z-index: 4;
+        width: 100%;
+        text-align: center;
+        @include center(50%,50%);
+        span,a {
+            float: none;
+            padding: 4px 5px;
+            line-height: 26px;
+            height: 26px;
+            margin: 0 0 10px 4px;
+            &.current {
+                background-color: #1ea0c3;
+                border: 1px solid #1ea0c3;
+                color: #fff;            
+            }        
+        }
+        a {
+            background-color: #fff;
+            border: 1px solid #e6e4e4;
+        }
+    }
+}
+// ----------- dosearch ---------------
+.dosearch-box {
+    .form {
+        width: 250px;
+        display: inline-flex;
+        height: 30px;
+    }
+    .form input[type=search] {
+        display: block;
+        float: left;
+        color: #000;
+        font-size: 15px;
+        width: 222px;
+        padding-left: 5px;
+        text-align: left;
+        height: 30px;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        background: #fff no-repeat 2vw center;
+        border-radius: 0;
+    }
+    .form input[type=search]::-webkit-input-placeholder {
+        color: #1e1e1e
+    }
+
+    .form input[type=search]:-moz-placeholder {
+        color: #1e1e1e
+    }
+
+    .form input[type=search]::-moz-placeholder {
+        color: #1e1e1e
+    }
+
+    .form input[type=search]:-ms-input-placeholder {
+        color: #1e1e1e
+    }
+
+    .form input[type=search].isFocus {
+        width: 55vw
+    }
+    .form input[type=button] {
+        display: none;
+        float: left;
+        width: 18vw;
+        height: 10vh;
+        background: #565454;
+        margin: 0 0 0 2vw
+    }
+
+    .form .delete_btn {
+        display: none;
+        position: relative;
+        width: 5vw;
+        height: 5vh;
+        background: #1e1e1e;
+        -moz-background-size: 100% auto;
+        -o-background-size: 100% auto;
+        -webkit-background-size: 100% auto;
+        background-size: 100% auto;
+        position: absolute;
+        top: 4.5vw;
+        left: 52vw;
+        z-index: 99;
+        -moz-border-radius: 99em;
+        -webkit-border-radius: 99em;
+        border-radius: 99em
+    }
+
+    .form .delete_btn::before {
+        content: "";
+        width: 3vw;
+        height: 1px;
+        background: #fff;
+        -moz-border-radius: 99px;
+        -webkit-border-radius: 99px;
+        border-radius: 99px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -moz-transform: rotate(45deg) translate(-50%, -50%);
+        -ms-transform: rotate(45deg) translate(-50%, -50%);
+        -webkit-transform: rotate(45deg) translate(-50%, -50%);
+        transform: rotate(45deg) translate(-50%, -50%);
+        -moz-transform-origin: top left;
+        -ms-transform-origin: top left;
+        -webkit-transform-origin: top left;
+        transform-origin: top left
+    }
+
+    .form .delete_btn::after {
+        content: "";
+        width: 3vw;
+        height: 1px;
+        background: #fff;
+        -moz-border-radius: 99px;
+        -webkit-border-radius: 99px;
+        border-radius: 99px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -moz-transform: rotate(-45deg) translate(-50%, -50%);
+        -ms-transform: rotate(-45deg) translate(-50%, -50%);
+        -webkit-transform: rotate(-45deg) translate(-50%, -50%);
+        transform: rotate(-45deg) translate(-50%, -50%);
+        -moz-transform-origin: top left;
+        -ms-transform-origin: top left;
+        -webkit-transform-origin: top left;
+        transform-origin: top left
+    }
+    .simg {
+        background-color: #000 !important;
+        border: 2px solid #000;
+        height: auto;
+        overflow: hidden;
+        width: 30px;
+    }    
+}
+.tab-wrapper {
+    margin: 20px auto;
+    width: 100%; 
+    .tab-menu {
+        height: 60px;
+    }
+    li {
+        border-radius: .25em .25em 0 0;
+        color: #000;  /* Color del texto de las pestañas */
+        cursor: pointer;
+        display: block;
+        float: left;
+        font-size: 1em;  /* Tamaño del texto de las pestañas */
+        height: 2.5em;
+        line-height: 2.5em;
+        margin-right: .25em;
+        padding: 0 1.5em;
+        text-align: center;
+        &.active {
+            color: #3c00b4;
+            font-weight: bold;
+            border-bottom: 2px solid #3c00b4;
+        }
+    }
+}
+.tab-content {
+    position: relative;
+    width: 100%;
+    .dosearch-article {
+        margin-bottom: 30px;
+        @include transition(all 0.3s);
+        display: block;
+        height: 120px;
+        overflow: hidden;
+        @include breakpoint($iphone) {
+            margin-bottom: 10px;
+            height: auto;
+        }
+        .dosearch-left {
+            margin-right: 1em;
+            float: left;
+            width: 177px;
+            height: 120px;
+            overflow: hidden;
+            position: relative;
+            @include breakpoint($iphone) {
+                display: none;
+            }
+            img {
+	        float: left;
+            width: 100%;
+            }
+        }
+        .dosearch-right {
+            float: left;
+            width: calc( 100% - 200px);
+            @include breakpoint($iphone) {
+                background-color: #fff;
+                padding: 15px;
+                width: inherit;
+            }
+            h3 {
+                text-align: justify;
+            }
+            .date {
+                display: flex;
+                time {
+                    position: absolute;
+                    left: 99%;
+                    @include transform(translateX(-99%));
+                    width: 100px;
+                    @include breakpoint($iphone) {
+                        left: 95%;
+                        @include transform(translateX(-95%));
+                    }                    
+                }
+            }
+            p {
+                line-height: 20px;
+                text-align: justify;
+            }
+        }
+    }
+}
+// ----------- channal ---------------
+ul.breadCrumbs {
+    &.left-line {
+        border-left: #3c00b4 solid 3px;
+        margin-top: 10px;
+        @include breakpoint($iphone) {
+            margin-top: 0px;
+        }
+    }
+    li {
+        display: inline-block;
+        position: relative;
+        font-size: 15px;
+        font-weight: bold;
+        + li:before {
+            content: ' > ';
+            font-size: inherit;
+            color: #111111;
+        }
+        a {
+            color: #111111;
+            font-size: 15px;
+            &:hover {
+                color: #1ea0c3;
+            }
+        }
+    }
+    li:nth-child(1){
+        padding-left: 10px;
+    }
+}
+$boder: 1px #1ea0c3 solid;
+.channalGroup {
+    margin: 20px auto;
+    @include breakpoint($ipad) {
+        margin: 10px auto;
+    }
+    .left {
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+    }
+    .right {
+        background-color: #fff;
+        padding-top: 20px;
+        box-shadow: 0px 6px 3px rgba(0, 0, 0, 0.03);
+        .include {           
+            .center {
+                width: 90%;
+                margin: auto;
+                padding: 20px 0px;
+                a {
+                    color: #1ea0c3;
+                    &:hover {
+                        color: #3c00b4;
+                    }
+                    h3 {
+                        color: #000;
+                        &:hover {
+                            color: #1ea0c3;
+                        }
+                    }
+                }
+                @include breakpoint($ipad) {
+                    width: 90%;
+                }
+                p {
+                    line-height: 20px;
+                    overflow: hidden;
+                    padding-bottom: 20px;
+                }
+            }               
+        }
+    }
+    h3 {
+        font-size: 25px;
+        padding-bottom: 15px;
+    }
+    .article-icon{
+        width: 90%;
+        position: relative;
+        display: flex;
+        margin: auto;
+        align-items: center;
+        time {
+            position: absolute;
+            right: 0;
+            top: 5px;
+        }
+     }
+    .icon-line {
+        @include icon("../images/line-messenger.svg",#989898,28px);
+        @include ie1011Edge("../images/article-line-messenger.png");
+      }
+    .icon-fb {
+        @include icon("../images/facebook.svg",#989898,28px);
+        @include ie1011Edge("../images/article-fb.png");
+    }
+}
+// ----------- article ---------------
+section.article-header {
+    @include breakpoint($ipad) {
+        width: 100%;
+    }
+    img {
+        @include breakpoint($ipad) {
+            width: 100%;
+        }
+    }
+    .source {
+        font-size: 13px;
+        color: #636569;
+        padding: 10px 0;
+        line-height: 1.35;
+        span + span {
+	        margin: 12.5px 0 0 2.5px;
+	        color: #939ea7;
+        }
+    }
+}
+.informationArea {
+    padding: 10px 0px;
+    border-bottom: #989898 solid 1px;
+    border-top: #989898 solid 1px;
+    margin: 10px 0px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    .icon-line {
+        @include icon("../images/line-messenger.svg",#444444,28px);
+        @include ie1011Edge("../images/article-line-messenger.png");
+      }
+    .icon-fb {
+        @include icon("../images/facebook.svg",#444444,28px);
+        @include ie1011Edge("../images/article-fb.png");
+        margin-left: 10px;
+    } 
+    time {
+        position: absolute;
+        right: 10px;
+    }
+}
+.authorType {
+    font-size: 15px;
+}
+.authorInfo {
+    display: flex;
+    li {
+        color: #989898;
+    }
+    a {
+        padding: 0px 10px 0px 0px;
+        color: #444;
+        &:hover {
+            color: #3c00b4;
+        }
+    }
+}
+.introduction {
+    line-height: 1.8;
+    margin: 1.85em 0;
+    font-weight: bold;
+    font-size: 17px;
+    text-align: justify;
+}
+
+section.nevin {
+    iframe {
+        max-width: 100% !important;
+    }
+    p {
+    font-size: 17px;
+    line-height: 1.8;
+    margin: 1.85em 0;  
+        em {
+            font-style: italic;
+        }
+        span.source {
+            display: block;
+            color: #636569 !important;
+            line-height: 100%;
+            font-size: 13px;       
+        }
+        a {
+            color: #1ea0c3;
+            &:hover {
+                color: #3c00b4;
+            }
+        } 
+        strong {
+            font-weight: 900;
+        }     
+    }
+    img {
+        text-align: center;
+        max-width: 100% !important;
+        height: auto !important;
+    }
+    hr {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        border: 0;
+        border-top: 1px solid #e3e3e2;
+    }
+}
+.authorDetail, .nevin .authorDetail {
+    vertical-align: middle;
+    overflow: hidden;
+    margin: auto;
+    padding: 20px 10px 20px 10px;
+    max-width: 500px;
+}
+.authorDetail .pic, .nevin .authorDetail .pic {
+    position: relative;
+    width: 97px;
+    height: 97px;
+    margin: auto;
+    border-radius: 50%;
+    overflow: hidden;
+    text-align: center;
+}
+.authorDetail .txt, .nevin .authorDetail .txt {
+	position: relative;
+}
+.authorDetail .txt h2, .nevin .authorDetail .txt h2 {
+	font-size: 18px;
+    padding-top: 12px;
+    padding-left: 0px;
+	padding-bottom: 12px;
+    margin: 0;
+    border: 0;
+    text-align: center;
+}
+@media (max-width: 767px) {
+.authorDetail .txt h2, .nevin .authorDetail .txt h2 {
+    font-size: 18px;
+    padding-top: 6px;
+    padding-left: 0px;
+    padding-bottom: 12px;
+    margin: 0;
+    border: 0;
+}
+}
+.authorDetail .txt p, .nevin .authorDetail .txt p {
+	font-size: 15px;
+	line-height: 1.6;
+	margin: 0;
+}
+.authorDetail .txt a, .nevin .authorDetail .txt a {
+	color: #1ea0c3;
+}
+.authorDetail .txt a:hover, .nevin .authorDetail .txt a:hover {
+	text-decoration: underline;
+}
+blockquote>p {
+	font-size: 17px!important;
+	line-height: 1.8;
+	font-weight: bold;
+}
+blockquote>p:before, q:before {
+	content: '\201C';
+	font-family: Georgia, serif;
+	color: #3c00b4;
+	font-size: 40px;
+	font-weight: bold;
+	line-height: 0.8;
+}
+blockquote>p:after, q:after {
+	content: '\201D';
+	font-family: Georgia, serif;
+	color: #3c00b4;
+	font-size: 40px;
+	font-weight: bold;
+	line-height: 0.6;
+	position: absolute;
+}
+@media (max-width: 767px) {
+blockquote>p {
+	font-size: 17px!important;
+	line-height: 1.8;
+	font-weight: bold;
+}
+blockquote>p:after, q:after {
+	content: '\201D';
+	color: #3c00b4;
+	font-size: 40px;
+	font-weight: bold;
+	line-height: 0.6;
+}
+}
+blockquote {
+	margin: 20px;
+	padding: 0px 20px;
+	font-size: 18px;
+	line-height: 1.8;
+	letter-spacing: 1px;
+	word-wrap: break-word;
+	word-break: break-all;
+}
+section.extend-reading {
+    padding-bottom: 50px;
+    @include breakpoint($iphone) {
+        width: 300px;
+        margin: auto;
+        padding-bottom: 40px;
+    }
+    h3 {
+        text-align: center;
+        margin-top: 30px;
+    }
+    .keywords {
+        text-align: center;
+        height: auto;
+        padding: 20px 10px 20px 10px;
+    }
+    ul {
+        padding: 20px 10px 20px 10px;
+        max-width: 500px;
+        margin: auto;
+        text-transform: uppercase;
+    }
+    li {
+        font-size: 18px;
+        margin-bottom: 0.75em;
+        color: #999;
+        line-height: 25px;
+        text-align: center;
+            a {
+                color: #1ea0c3;
+                &:hover {
+                    color: #3c00b4;
+                }
+            }      
+        }
+}
+section.keyword {
+    margin-bottom: 25px;
+    .keywords {
+        padding: 0px 0px 0px 0px;
+        height: auto;
+    }
+    h4 {
+        border-bottom: 0px;
+    }
+}
+section.download{
+    padding: 10px 0px;
+    border-bottom: #989898 solid 1px;
+    border-top: #989898 solid 1px;
+    margin: 10px 0px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    span {
+        font-weight: bold;
+    }
+    a.nextArticle {
+        float: left;
+        width: 300px;
+        overflow: hidden;
+        background: url(../images/Forward-arrow.png) no-repeat right;
+        padding-left: 4em;
+        padding-right: 1.7em;
+        margin-bottom: 5px;
+        text-align: right;
+        position: relative;
+        top: 5px;
+        min-height: 17px;
+        @include breakpoint($iphone) {
+            width: 75%;
+            padding-left: 0px;
+        }
+        span {
+            color: #1ea0c3;
+        }
+    }
+}
+section.list-link {
+    padding: 50px 0px 100px 0px;
+    ul.etu-item-list {
+        li {
+            a {
+                display: flex;
+                padding: 30px 0px 0px 0px;
+                .interest-list-link-img {
+                    width: 30%;
+                    img {
+                        width: 100%;
+                    }
+                }
+            }
+            .interest-list-link-title {
+                padding-left: 2%;
+                width: 68%;
+                h3 {
+                    @include breakpoint($iphone) {
+                        font-size: 15px;
+                        text-align: justify;
+                        padding: 0px 0px;font-size: 15px;
+                    }
+                }
+            }
+        }
+    }
+}
+/*-------------------bottom-bar-----------------------*/
+.bottom-bar{
+	position: fixed;
+	width: 100%;
+	bottom: 0;
+	text-align: center;
+    z-index: 100;
+    .container {
+        width: 970px;
+        @include breakpoint($ipad) {
+            width: 100%;
+        }
+    }
+}
+.bottom-bar:hover .btn-lookmore img{
+	transition: .3s;
+	transform: scale(1.2);
+}
+.bar-view {
+	display: block;
+	margin: 0 ;
+	padding: 6px 5px 8px;
+	text-decoration: none;
+	background-color: #583b9c;
+	color: #fff;
+	font-size: 16px;
+	line-height: 1;
+}
+.bar-expand {
+	display: none;
+	background: #fff;
+	color: #333;
+	padding: 10px 10px 20px 10px;
+}
+.btn-lookmore img{
+	width: 16px;
+	top: 2px;
+	left: 5px;
+    position: relative;
+	transition: .5s;
+}
+.bar-expand a.btn-linkto {
+	display: inline-block;
+	background: #583b9c;
+	padding: 6px 16px 8px 17px;
+    margin-top: 12px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 200;
+    letter-spacing: 2px;
+}
+.bar-expand a.btn-linkto:hover{
+	background: #1ea0c3;
+}
+@media(max-width:768px) {
+	.bottom-bar .container{
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+// ----------- global ---------------
+.black {
+    background-color:#000;
+    opacity: 0;
+    @include transition(all 1s);
+}
+@keyframes duang {
+    0% {
+        box-shadow: 0vw 0vw 0 black, 0vw 0.9vw 0 white, 0vw 1.8vw 0 white, 0.9vw 0vw 0 white, 0.9vw 0.9vw 0 white, 0.9vw 1.8vw 0 white, 1.8vw 0vw 0 white, 1.8vw 0.9vw 0 white, 1.8vw 1.8vw 0 white;        
+    }
+    100% {
+        box-shadow: 0vw 0vw 0 black, 0vw 1vw 0 white, 0vw 2vw 0 white, 1vw 0vw 0 white, 1vw 1vw 0 white, 1vw 2vw 0 white, 2vw 0vw 0 white, 2vw 1vw 0 white, 2vw 2vw 0 white;
+    }
+  }
+.loading {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    z-index: 99999;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    background: #333 url("../images/loading.gif") no-repeat center center;
+  }
+.fullPage {
+    display: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(17, 17, 17, 0.9);
+    right: 0;
+    margin: auto;
+    z-index: 1001;
+    @include breakpoint($iphone) {
+        background:rgb(17, 17, 17)
+    }
+    .fullPage-contain {
+        width: 720px;
+        height: 600px;
+        overflow-y: auto;
+        margin: auto;
+        position: relative;
+        top: 50%;
+        @include transform(translateY(-50%));
+        @include breakpoint($ipad) {
+            width: 90%;
+        }
+        @include breakpoint($iphone) {
+            height: 100%;
+            top: 10%;
+            @include transform(translateY(-10%));
+        }
+        hr {
+            border-bottom: #F5F5F5 solid 1px;
+            padding-top: 80px;
+            cursor: pointer;
+            border-left: 0;
+            border-right: 0;
+            border-top: 0;
+            @include breakpoint($iphone) {
+                padding-top: 60px;
+            }
+            &:before {
+                content: url(../images/close.png);
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                @include breakpoint($iphone) {
+                    top: 10px;
+                }
+            }
+        }
+        h1 {
+            font-size: 40px;
+            font-weight: bold;
+            padding: 15px 0px 20px 0px;
+            color: #fff;
+            @include breakpoint($pc1850) {
+                font-size: 30px;
+            }
+        }
+        h5 {
+            padding-top: 35px;
+            font-size: 20px;
+            @include breakpoint($pc1850) {
+                font-size: 15px;
+            }
+            @include breakpoint($iphone) {
+                padding-top: 20px;
+            }
+        }
+        a {
+            color: #1ea0c3; 
+            &:hover {
+                color: #3c00b4; 
+            }
+        }
+        p {
+            color: #fff;
+            text-align: justify;
+            font-size: 15px;
+            line-height: 26px;
+            margin: 1em 0px;
+        }
+        span {
+            color: #fff;
+        }
+        .operate {
+            margin: 10px 0px;
+            span {
+                margin-right: 20px;   
+            }
+        }
+        .article-icon {
+            padding-bottom: 35px;
+            display: flex;
+            align-items: center;
+            .icon-fb {
+                @include icon("../images/facebook.svg",#fff,28px);
+                @include ie1011Edge("../images/fb.png");
+              }
+            span {
+                color: #fff;
+            }
+            time {
+                position: absolute;
+                right: 10px;
+                color: #fff;
+            }
+        }
+    }
+}
+.covered {
+    position: absolute;
+    background: #000; 
+    top: 65px;
+    left:0;
+    right:0;
+    bottom:0;
+    z-index: 1;
+    margin: 0;
+    padding:0;
+    background-size: cover;
+    &::before {
+        @include breakpoint($iphone) {
+            content: "";
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.75) 80%);
+            background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.75) 80%);
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.75) 80%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=0);
+        }
+    }
+    @include breakpoint($iphone) {
+        top: 60px;
+    }
+    img {
+        display: none;
+    }
+  }
+  div.global-detail {
+    position: absolute;
+    bottom: 50px;
+    left: 50px;
+    margin: auto;
+    width: 30vw;
+    height: auto;
+    z-index: 5;
+    @include breakpoint($pc1850) {
+        width: 65vw;
+    }
+    @include breakpoint($iphone) {
+        width: 85%;
+        left: 30px;
+        bottom: 80px;
+    }
+    .detail-tittle {
+        font-size: 45px;
+        color: #fff;
+        max-height: 90px;
+        margin-bottom: 10px;
+        line-height: 45px;
+        overflow: hidden;
+        @include breakpoint($pc1850) {
+            font-size: 30px;
+            max-height: 70px;
+            margin-bottom: 5px;
+            line-height: 35px;
+        }
+    }  
+    .detail-descript {
+        font-size: 20px;
+        color: #fff;
+        line-height: 30px;
+        padding-bottom: 10px;
+        text-align: justify;
+        @include breakpoint($pc1850) {
+            font-size: 16px;
+            line-height: 25px;
+        }
+    }
+    span {
+        cursor: pointer;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        &:before {
+            content: url(../images/Add.png);
+            color: #fff;
+            padding-right: 10px;
+        }
+    }
+  }
+  div.Jiugongge{
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+    margin: auto;
+    width: 70px;
+    height: 70px;
+    z-index: 5;
+    cursor: pointer;
+    @include breakpoint($pc1850) {
+        width: 40px;
+        height: 40px;
+        bottom: 30px;
+        right: 30px;
+    }
+    @include breakpoint($iphone) {
+        background: url(../images/Jiugongge.png) 100% 100%;
+    }
+    &:after {
+        content: "";
+        animation: duang 5s;
+        @include transition(all 1s);
+        position: absolute;
+        width: 16.67px;
+        height: 16.67px;
+        background: #ffffff;
+        box-shadow: 0vw 0vw 0 black, 0vw 1vw 0 white, 0vw 2vw 0 white, 1vw 0vw 0 white, 1vw 1vw 0 white, 1vw 2vw 0 white, 2vw 0vw 0 white, 2vw 1vw 0 white, 2vw 2vw 0 white;
+        @include breakpoint($pc1850) {
+            width: 10px;
+            height: 10px;
+        }
+        @include breakpoint($iphone) {
+            display: none;
+        }
+    }
+    &:hover:after,
+    &:focus:after {
+        content: "";
+    background: #ffffff;
+    box-shadow: 0vw 0vw 0 black, 0vw 0.9vw 0 white, 0vw 1.8vw 0 white, 0.9vw 0vw 0 white, 0.9vw 0.9vw 0 white, 0.9vw 1.8vw 0 white, 1.8vw 0vw 0 white, 1.8vw 0.9vw 0 white, 1.8vw 1.8vw 0 white;
+    }
+  }
+  ul.global-box {
+    position: absolute;
+    top: 65px;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #000;
+    @include breakpoint($iphone) {
+        top: 60px;
+    }
+    &.hide {
+        width: 0%;
+        height: 0%;
+        right: 0px;
+        opacity: 0;
+        bottom: 0;
+        background-color: #000;
+        position: fixed;
+        z-index: -1;
+    }
+  }
+  li.thumb {
+    position: relative;
+    float: left;
+    width: 25%;
+    height: 30%;
+    overflow: hidden;
+    @include transition(all 1s);
+    cursor: pointer;
+    @include breakpoint($ipad) {
+        width: 100%;
+        height: 40%;
+    }
+    @include breakpoint($iphone) {
+        height: 35%;
+    }    
+        img {
+            width: 150%;
+            opacity: 0.3;
+            position: relative;
+            top: 50%;
+            left: 50%;
+            @include transform(translateX(-50%) translateY(-50%));
+            @include breakpoint($pc1366) {
+                width: 160%;
+            }
+            @include breakpoint($ipad) {
+                width: 100%;
+            }
+            @include breakpoint($iphone) {
+                width: 150%;
+            }            
+            @include transition(all 1s);
+            &:hover {
+                opacity: 1;
+            }
+        }
+        a{
+            .bg {
+                position: absolute;
+                top: 0;
+                z-index: -1;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                @include transition(all 0.1s);
+                &:before {
+                    content: "";
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    background-color: #000;
+                }
+                .city-box {
+                    text-align: center;
+                    width: 300px;
+                    height: 160px;
+                    margin: auto;
+                    @include transition(all 0.1s);
+                    position: relative;
+                    top: 50%;
+                    @include transform(translateY(-50%));
+                    @include breakpoint($pc1850) {
+                        width: 200px;
+                    }
+                    @include breakpoint($ipad) {
+                        width: 80%;
+                    }
+                    h5 {
+                        font-size: 20px;
+                        margin-bottom: 20px;
+                        height: 40px;
+                        overflow: hidden;
+                        @include breakpoint($pc1850){
+                            font-size: 15px;
+                            margin-bottom: 10px;
+                            height: 30px;
+                        }
+                        @include breakpoint($ipad) {
+                            height: auto;
+                        }
+                        @include breakpoint($iphone) {
+                            height: 12px;
+                            font-size: 12px;
+                            margin-top: 20px;
+                            margin-bottom: 5px;
+                        }
+                    }
+                    p {
+                        color: #fff;
+                        font-size: 40px;
+                        margin-bottom: 10px;
+                        height: 80px;
+                        overflow: hidden;
+                        @include breakpoint($pc1850) {
+                            font-size: 1.8rem;
+                            height: 55px;
+                        }
+                        @include breakpoint($iphone) {
+                            font-size: 30px;
+                            height: 28px;
+                            margin-top: 10px;
+                        }
+                    }
+                    .eye {
+                        &:after {
+                            background-image: url(../images/eye.svg);
+                            background-size: 100% 100%;
+                            background-repeat: no-repeat;
+                            width: 50px;
+                            height: 50px;
+                            position: absolute;
+                            content: "";
+                            z-index: 10;
+                            left: 50%;
+                            @include transform(translateX(-50%));
+                        }
+                    } 
+                }
+            }            
+        }
+
+    }
+// ----------- partner ---------------
+.PartnerLogo {
+    display: flex;
+    flex-wrap: wrap;
+    a {
+        width: auto;
+        height: 99px;
+    }
+}
+//  ----------- 404 ---------------
+.NotFound {
+    margin: 20px auto;
+    padding-top: 95px;
+    text-align: center;
+    h1 {
+        @include breakpoint($iphone) {
+            font-size: 30px;
+        }
+    }
+    .NotFound-icon {
+        margin: auto;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 300px;
+        a {
+            width: 65px;
+        }
+        li.icon-search {
+            @include icon("../images/Search.svg",#000,50px);
+            @include ie1011Edge("../images/pc-search.png");
+            margin: 0px 0px 10px 0px; 
+            background-size:100% 100% !important;    
+        }
+        li.icon-mail {
+            @include icon("../images/mail_white.svg",#000,50px);
+            @include ie1011Edge("../images/mail_gray.png");  
+            margin: 0px 0px 10px 0px; 
+            background-size:100% 100% !important;            
+        }
+        li.icon-home {
+            @include icon("../images/home.png",#000,50px);
+            @include ie1011Edge("../images/home.png");  
+            margin: 0px 0px 10px 0px;  
+            background-size:100% 100% !important;      
+        }
+    }
+}
+// cw.article add class 
+.twitter-tweet {
+    margin-left: auto;
+    margin-right: auto;
+}
+.infogram-embed {
+    margin-bottom: 1.85em;
+}
+.youtube-embed-wrapper {
+    margin-bottom: 1.85em;
+}
